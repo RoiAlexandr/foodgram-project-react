@@ -35,7 +35,7 @@ class Tag(models.Model):
         db_index=True,
         unique=True
     )
-    colour = models.CharField(
+    color = models.CharField(
         max_length=7,
         verbose_name='Цвет'
     )
@@ -71,7 +71,7 @@ class Recipe(models.Model):
         upload_to='recipes/images',
         verbose_name='Картинка'
     )
-    description = models.TextField(
+    text = models.TextField(
         help_text='Введите описание рецепта',
         verbose_name='Описание'
     )
@@ -84,10 +84,10 @@ class Recipe(models.Model):
         Tag,
         verbose_name='Теги'
     )
-    сooking_time = models.PositiveIntegerField(
-        verbose_name='Время приготовления в минутах',
+    cooking_time = models.PositiveIntegerField(
+        verbose_name='Время приготовления',
         validators=[MinValueValidator(
-            1, message='Время приготовления не менее 1 минуты!'
+            1, message='Время приготовления  не менее 1 минуты!'
         )]
     )
     pub_date = models.DateTimeField(
@@ -116,7 +116,7 @@ class IngredientRecipe(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Рецепт'
     )
-    quantity = models.IntegerField(
+    amount = models.IntegerField(
         validators=[MinValueValidator(1)],
         verbose_name='Количество ингредиента'
     )
@@ -155,7 +155,7 @@ class RecipeTag(models.Model):
         ]
 
 
-class ShoppingList(models.Model):
+class ShoppingCart(models.Model):
     """ Модель списка покупок. """
     user = models.ForeignKey(
         User,
@@ -205,3 +205,4 @@ class Favorite(models.Model):
         ]
         verbose_name = 'Избранный рецепт'
         verbose_name_plural = 'Избранные рецепты'
+

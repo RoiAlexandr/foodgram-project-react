@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Tag, Ingredient, Recipe, ShoppingList, Favorite
+from .models import Tag, Ingredient, Recipe, ShoppingCart, Favorite
 
 
 class IngredientsRecipeLine(admin.TabularInline):
@@ -20,7 +20,7 @@ class IngredientAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     """ Админ панель управление тегами """
-    list_display = ('name', 'colour', 'slug')
+    list_display = ('name', 'color', 'slug')
     search_fields = ('name', 'slug')
     list_filter = ('name',)
     empty_value_display = '-пусто-'
@@ -53,8 +53,8 @@ class FavoriteAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(ShoppingList)
-class ShoppingListAdmin(admin.ModelAdmin):
+@admin.register(ShoppingCart)
+class ShoppingCartAdmin(admin.ModelAdmin):
     """ Админ панель списка покупок """
     list_display = ('recipe', 'user')
     list_filter = ('recipe', 'user')
