@@ -1,4 +1,7 @@
+from django.db.models import Sum, F
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
@@ -16,7 +19,7 @@ from .filters import IngredientFilter, RecipeFilter
 from .permissions import IsAuthorOrAdminOrReadOnly
 from .serializers import (CreateRecipeSerializer, IngredientSerializer,
                           RecipeSerializer, TagSerializer,
-                          ShoppingCartSerializer, FavoriteSerializer)
+                          ShoppingCartSerializer)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
@@ -48,3 +51,33 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if self.request.method == 'GET':
             return RecipeSerializer
         return CreateRecipeSerializer
+
+    @staticmethod
+    def post_method_for_actions(request, pk, serializers):
+        data = {'user': request.user.id, 'recipe': pk}
+        serializer = serializers(data=data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def delete_method_for_actions(request, pk, model):
+        user = request.user
+        recipe = get_object_or_404(Recipe, id=pk)
+        model_instance = get_object_or_404(model, user=user, recipe=recipe)
+        model_instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=True, methods=['post'])
+    def shopping_cart(self, request, pk):
+        return self.post_method_for_actions(
+            request, pk, serializers=ShoppingCartSerializer
+        )
+
+    @shopping_cart.mapping.delete
+    def delete_shopping_cart(self, request, pk):
+        return self.delete_method_for_actions(
+            request=request, pk=pk, model=ShoppingCart)
+
+
+
