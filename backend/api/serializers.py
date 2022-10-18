@@ -4,6 +4,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
+from rest_framework.serializers import ModelSerializer
 from rest_framework.validators import UniqueTogetherValidator
 
 from users.models import User, Follow
@@ -29,7 +30,7 @@ class CustomUserSerializer(UserSerializer):
         model = User
         fields = ('id', 'email', 'username', 'first_name',
                   'last_name', 'is_subscribed'
-        )
+                  )
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
@@ -192,6 +193,29 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
         return data
 
     def to_representation(self, instance):
-        return ShowFavoriteSerializer(instance.recipe, context={
+        return RecipeShortInfo(instance.recipe, context={
+            'request': self.context.get('request')
+        }).data
+
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    """ Сериализатор избранного """
+    class Meta:
+        model = Favorite
+        fields = ('user', 'recipe')
+
+    def validate(self, data):
+        request = self.context.get('request')
+        if not request or request.user.is_anonymous:
+            return False
+        recipe = data['recipe']
+        if Favorite.objects.filter(user=request.user, recipe=recipe).exists():
+            raise ValidationError({
+                'errors': 'Уже есть в избранном.'
+            })
+        return data
+
+    def to_representation(self, instance):
+        return RecipeShortInfo(instance.recipe, context={
             'request': self.context.get('request')
         }).data

@@ -6,9 +6,7 @@ from .models import User, Follow
 @admin.register(User)
 class UsersAdmin(admin.ModelAdmin):
     """ Админ панель управление пользователями """
-    list_display = ('username', 'email',
-                    'first_name', 'last_name'
-                    )
+    list_display = ('username', 'email', 'first_name', 'last_name')
     search_fields = ('email', 'username')
     list_filter = ('email', 'username')
     ordering = ('username', )
@@ -22,4 +20,3 @@ class FollowAdmin(admin.ModelAdmin):
     list_display_links = ('user', )
     search_fields = ('user', )
     empty_value_display = '-пусто-'
-
