@@ -6,12 +6,11 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer
-from rest_framework.validators import UniqueTogetherValidator
 
 from users.models import User, Follow
 
 from recipes.models import (Recipe, Tag, Ingredient, IngredientRecipe,
-                            Favorite, ShoppingCart, RecipeTag)
+                            Favorite, ShoppingCart)
 
 
 class CustomUserCreateSerializer(UserCreateSerializer):

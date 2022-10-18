@@ -3,17 +3,14 @@ from datetime import datetime
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
 from django_filters.rest_framework import DjangoFilterBackend
 from djoser.views import UserViewSet
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
-from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.status import HTTP_400_BAD_REQUEST
-from rest_framework.views import APIView
 
 from recipes.models import (Favorite, Ingredient, Recipe, IngredientRecipe,
                             ShoppingCart, Tag, ShoppingCart)
@@ -25,7 +22,7 @@ from .permissions import IsAuthorOrAdminOrReadOnly
 from .serializers import (CreateRecipeSerializer, IngredientSerializer,
                           RecipeSerializer, TagSerializer,
                           ShoppingCartSerializer, FavoriteSerializer,
-                          FollowSerializer, CustomUserSerializer, FollowListSerializer)
+                          FollowSerializer, FollowListSerializer)
 
 
 class UsersViewSet(UserViewSet):
