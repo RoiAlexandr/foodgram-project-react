@@ -50,24 +50,24 @@ class UsersViewSet(UserViewSet):
     @action(methods=['post', 'delete'], detail=True)
     def subscribe(self, request, id):
         """ Подписаться/отписаться """
-        if request.method != 'POST':
-            subscription = get_object_or_404(
-                Follow,
-                author=get_object_or_404(User, id=id),
-                user=request.user
+        if request.method == 'POST':
+            serializer = FollowSerializer(
+                data={
+                    'user': request.user.id,
+                    'author': get_object_or_404(User, id=id).id
+                },
+                context={'request': request}
             )
-            self.perform_destroy(subscription)
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        serializer = FollowSerializer(
-            data={
-                'user': request.user.id,
-                'author': get_object_or_404(User, id=id).id
-            },
-            context={'request': request}
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        subscription = get_object_or_404(
+            Follow,
+            author=get_object_or_404(User, id=id),
+            user=request.user
         )
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        self.perform_destroy(subscription)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
