@@ -2,16 +2,14 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from drf_extra_fields.fields import Base64ImageField
+from recipes.models import (Favorite, Ingredient, IngredientRecipe, Recipe,
+                            ShoppingCart, Tag)
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer
-
-from users.models import User, Follow
-
-from recipes.models import (Recipe, Tag, Ingredient, IngredientRecipe,
-                            Favorite, ShoppingCart)
+from users.models import Follow, User
 
 
 class CustomUserCreateSerializer(UserCreateSerializer):
