@@ -12,10 +12,11 @@ services:
     restart: always
 
   backend:
-    image: aleksander777888/foodgarm_backend:latest
+    image: aleksander777888/foodgarm-backend:latest
     volumes:
       - ../static/:/app/static/
       - ../media/:/app/media/recipes/
+      - redoc:/app/api/docs/
     depends_on:
       - db
     env_file:
@@ -26,6 +27,8 @@ services:
     image: aleksander777888/foodgarm_frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
+    depends_on:
+      - db
 
   nginx:
     image: nginx:1.19.3
@@ -37,6 +40,9 @@ services:
       - ../docs/:/usr/share/nginx/html/api/docs/
       - ../static/:/var/html/static/
       - ../media/:/var/html/media/recipes/
+    depends_on:
+      - backend
+      - frontend
 
 volumes:
   static_value:
