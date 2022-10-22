@@ -101,6 +101,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def post_method_for_actions(request, pk, serializers):
+        """ Метод добавления """
         data = {'user': request.user.id, 'recipe': pk}
         serializer = serializers(data=data, context={'request': request})
         serializer.is_valid(raise_exception=True)
@@ -109,11 +110,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def delete_method_for_actions(request, pk, model):
-        user = request.user
-        recipe = get_object_or_404(Recipe, id=pk)
-        model_instance = get_object_or_404(model, user=user, recipe=recipe)
-        model_instance.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        """ Метод удаления """
+        obj = model.objects.filter(user=request.user, recipe__id=pk)
+        if obj.exists():
+            obj.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'errors': 'Рецепт уже удален!'},
+                        status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['post'])
     def shopping_cart(self, request, pk):
