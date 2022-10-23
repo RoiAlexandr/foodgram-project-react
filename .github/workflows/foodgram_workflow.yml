@@ -68,6 +68,7 @@ jobs:
             sudo docker-compose stop
             sudo docker-compose rm backend
             sudo docker-compose rm frontend
+            rm .env
             touch .env
             sudo echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             sudo echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
