@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Парсинг ингридиентов
-        with open('static/data/ingredients.csv', encoding='utf-8') as file:
+        with open('var/data/ingredients.csv', encoding='utf-8') as file:
             reader = csv.reader(file)
             next(reader)
             for row in reader:
