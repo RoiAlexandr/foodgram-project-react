@@ -59,7 +59,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgarm-frontend:latest
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgarm-frontend:v1.0.0
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}foodgarm-backend:latest
             sudo docker-compose stop
             sudo docker-compose rm backend
