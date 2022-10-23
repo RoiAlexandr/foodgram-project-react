@@ -145,5 +145,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = False
-
-CORS_ALLOWED_ORIGINS = ['http://178.154.225.85:3000']
