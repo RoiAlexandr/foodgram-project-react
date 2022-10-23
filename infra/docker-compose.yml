@@ -41,6 +41,7 @@ services:
     depends_on:
       - backend
       - frontend
+    restart: always
 
 volumes:
   static_value:
