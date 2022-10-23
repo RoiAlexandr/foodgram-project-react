@@ -146,4 +146,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = False
 
-CORS_ALLOWED_ORIGINS = ['http://130.193.49.13.135:3000', ]
+CORS_ALLOWED_ORIGINS = ['http://178.154.225.85:3000', ]
