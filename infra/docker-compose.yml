@@ -38,6 +38,7 @@ services:
       - ../docs/:/usr/share/nginx/html/api/docs/
       - ../static/:/var/html/static/
       - ../media/:/var/html/media/recipes/
+      - redoc:/usr/share/nginx/html/api/docs/
     depends_on:
       - backend
       - frontend
@@ -46,4 +47,5 @@ services:
 volumes:
   static_value:
   media_value:
+  redoc:
   postgres_data:
