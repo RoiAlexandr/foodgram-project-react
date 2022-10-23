@@ -24,7 +24,7 @@ services:
     restart: always
 
   frontend:
-    image: aleksander777888/foodgarm_frontend:latest
+    image: aleksander777888/foodgarm-frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
