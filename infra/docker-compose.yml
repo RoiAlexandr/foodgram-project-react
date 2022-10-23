@@ -24,8 +24,6 @@ services:
     image: aleksander777888/foodgarm-frontend:latest
     volumes:
       - ./frontend/:/app/result_build/
-    depends_on:
-      - db
 
   nginx:
     image: nginx:1.19.3
