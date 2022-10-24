@@ -10,7 +10,7 @@ services:
     restart: always
 
   backend:
-    image: aleksander777888/foodgarm-backend:latest
+    image: aleksander777888/foodgram-backend:latest
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/recipes/
@@ -21,7 +21,7 @@ services:
     restart: always
 
   frontend:
-    image: aleksander777888/foodgarm-frontend:v1.0.0
+    image: aleksander777888/foodgram-frontend:v1.0.0
     volumes:
       - ./frontend/:/app/result_build/
 
