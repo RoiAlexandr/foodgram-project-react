@@ -1,7 +1,13 @@
 import csv
+from pathlib import Path
 
 from django.core.management.base import BaseCommand
 from recipes.models import Ingredient
+
+from backend.settings import BASE_DIR
+
+PROJECT_DIR = Path(BASE_DIR).resolve().parent.joinpath('data')
+FILE_TO_OPEN = PROJECT_DIR / 'ingredients.csv'
 
 
 class Command(BaseCommand):
@@ -9,7 +15,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Парсинг ингридиентов
-        with open('/data/ingredients.csv', encoding='utf-8') as file:
+        with open(FILE_TO_OPEN, encoding='utf-8') as file:
             reader = csv.reader(file)
             next(reader)
             for row in reader:
