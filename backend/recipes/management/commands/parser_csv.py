@@ -6,8 +6,8 @@ from recipes.models import Ingredient
 
 from backend.settings import BASE_DIR
 
-PROJECT_DIR = Path(BASE_DIR).resolve().parent.joinpath('data')
-FILE_TO_OPEN = PROJECT_DIR / 'ingredients.csv'
+PROJECT_DIR = Path(BASE_DIR).resolve().joinpath('data')
+FILE_TO_OPEN = PROJECT_DIR / "ingredients.csv"
 
 
 class Command(BaseCommand):
