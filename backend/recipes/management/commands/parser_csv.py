@@ -3,7 +3,6 @@ from pathlib import Path
 
 from django.core.management.base import BaseCommand
 from recipes.models import Ingredient
-
 from foodgram.settings import BASE_DIR
 
 PROJECT_DIR = Path(BASE_DIR).resolve().joinpath('data')
