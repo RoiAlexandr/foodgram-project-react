@@ -10,7 +10,7 @@ FILE_TO_OPEN = PROJECT_DIR / "ingredients.csv"
 
 
 class Command(BaseCommand):
-    help = 'Заливка csv прайсов'
+    help = 'Заливка csv файлов'
 
     def handle(self, *args, **options):
         # Парсинг ингридиентов
