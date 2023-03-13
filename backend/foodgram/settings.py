@@ -13,7 +13,7 @@ SECRET_KEY = 'k9gwcfq01xszx2(_4e#gc3u$rt=)y6ivx=$wt+5&-^ktk4dg4e'
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['45.80.69.95']
+ALLOWED_HOSTS = ['45.146.166.134']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -146,4 +146,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = False
 
-CORS_ALLOWED_ORIGINS = ['http://45.80.69.95:3000']
+CORS_ALLOWED_ORIGINS = ['http://45.146.166.134:3000']
